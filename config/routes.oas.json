@@ -1,0 +1,45 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Single Environment Server API Example",
+    "version": "1.0.0",
+    "description": "Demonstrates defining servers at global, path, and operation levels."
+  },
+  "servers": [
+    {
+      "url": "https://api.example.com/v1"
+    }
+  ],
+  "paths": {
+    "/v1/todos": {
+      "x-zuplo-path": {
+        "pathMode": "open-api"
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "A list of users"
+          }
+        },
+        "operationId": "90ce2450-f7a1-48c7-ac50-f95012326cd4",
+        "x-zuplo-route": {
+          "corsPolicy": "none",
+          "handler": {
+            "export": "urlRewriteHandler",
+            "module": "$import(@zuplo/runtime)",
+            "options": {
+              "rewritePattern": "https://jsonplaceholder.typicode.com/todos"
+            }
+          },
+          "policies": {
+            "inbound": [
+              "api-key-inbound",
+              "openmeter-inbound"
+            ]
+          }
+        },
+        "summary": "Get All todos"
+      }
+    }
+  }
+}

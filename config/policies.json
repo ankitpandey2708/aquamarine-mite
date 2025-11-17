@@ -1,0 +1,36 @@
+{
+  "policies": [
+    {
+      "handler": {
+        "export": "ApiKeyInboundPolicy",
+        "module": "$import(@zuplo/runtime)",
+        "options": {
+          "allowUnauthenticatedRequests": false,
+          "cacheTtlSeconds": 60
+        }
+      },
+      "name": "api-key-inbound",
+      "policyType": "api-key-inbound"
+    },
+    {
+      "handler": {
+        "export": "OpenMeterInboundPolicy",
+        "module": "$import(@zuplo/runtime)",
+        "options": {
+          "apiKey": "om_xRaj29AuYamE0sGnqUh3053UHVBlNzlk.MeVRHXfriGzRlgYzj7e_HGRcPqhbWrLfyOopVxvnito",
+          "meter": {
+            "type": "api-request",
+            "data": {
+              "count": 1
+            }
+          },
+          "requiredEntitlements": [
+            "api-request"
+          ]
+        }
+      },
+      "name": "openmeter-inbound",
+      "policyType": "openmeter-inbound"
+    }
+  ]
+}
